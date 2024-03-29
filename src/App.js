@@ -21,18 +21,17 @@ function App() {
 
   const handleChange = (e)=>{
     setQuery(e.target.value);
+    const query = e.target.value.toLowerCase(); // Get the query in lowercase
+  
 
-    if(query === '')
-      setFilteredCountries(countries);
-    else{
-      //let filtered = countries.filter((country)=>country.name.common.toLowerCase().startsWith(query.toLowerCase()));
-      let filtered = countries.filter((country) => {
-        const name = country.name.common.toLowerCase();
-        const queryLower = query.toLowerCase();
-        return name.startsWith(queryLower) || name.includes(' ' + queryLower);
-    })
-      setFilteredCountries(filtered);
-    }
+  // Filter countries based on the query
+  const filtered = countries.filter((country) => {
+    const name = country.name.common.toLowerCase();
+    return name.startsWith(query) || name.includes(query);
+  });
+
+  // Update the filtered countries
+  setFilteredCountries(filtered);
 
   }
   useEffect(()=>{fetchCountries() },[]);
