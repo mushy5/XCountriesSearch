@@ -25,8 +25,12 @@ function App() {
     if(query === '')
       setFilteredCountries(countries);
     else{
-      let filtered = countries.filter((country)=>country.name.common.toLowerCase().includes(query.toLowerCase()));
-      //console.log(filtered);
+      //let filtered = countries.filter((country)=>country.name.common.toLowerCase().startsWith(query.toLowerCase()));
+      let filtered = countries.filter((country) => {
+        const name = country.name.common.toLowerCase();
+        const queryLower = query.toLowerCase();
+        return name.startsWith(queryLower) || name.includes(' ' + queryLower);
+    })
       setFilteredCountries(filtered);
     }
 
